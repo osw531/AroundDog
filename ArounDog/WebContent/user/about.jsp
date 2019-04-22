@@ -84,8 +84,8 @@
 				</div>
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
-						<li class="menu-active"><a href="index.html">Home</a></li>
-						<li><a href="about.html">About Us</a></li>
+						<li class="menu-active"><a href="index.jsp">Home</a></li>
+						<li><a href="about.jsp">About Us</a></li>
 						<li><a href="cats.html">Cats</a></li>
 						<li><a href="dogs.html">Dogs</a></li>
 						<li><a href="volunteer.html">Volunteer</a></li>
@@ -120,10 +120,6 @@
 			<div class="row d-flex align-items-center justify-content-center">
 				<div class="about-content col-lg-12">
 					<h1 class="text-white">About Us</h1>
-					<p class="text-white link-nav">
-						<a href="index.html">Home </a> <span class="lnr lnr-arrow-right"></span>
-						<a href="about.html"> About Us</a>
-					</p>
 				</div>
 			</div>
 		</div>
@@ -146,7 +142,6 @@
 						and finds them new homes. APS is one of the largest no kill animal
 						shelters in Republic of Korea and is devoted to the welfare of all
 						animals.</p>
-					<a href="#" class="primary-btn text-uppercase">get details</a>
 				</div>
 			</div>
 		</div>
