@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.aroundog.model.domain.Admin" alias="Admin"/>
+		<typeAlias type="com.aroundog.model.domain.FreeBoard" alias="FreeBoard"/>
+		<typeAlias type="com.aroundog.model.domain.Adopt" alias="Adopt"/>
+		<typeAlias type="com.aroundog.model.domain.Report" alias="Report"/>
+    	<typeAlias type="com.aroundog.model.domain.ReportImg" alias="ReportImg"/>
+	</typeAliases>
+	<mappers>
+		<mapper resource="com/aroundog/mybatis/mapper/AdminMapper.xml" />
+ 		<mapper resource="com/aroundog/mybatis/mapper/FreeBoardMapper.xml" />
+ 		<mapper resource="com/aroundog/mybatis/mapper/AdoptMapper.xml" />
+ 		<mapper resource="com/aroundog/mybatis/mapper/ReportMapper.xml"/>
+        <mapper resource="com/aroundog/mybatis/mapper/ReportImgMapper.xml"/>
+	</mappers>
+</configuration>

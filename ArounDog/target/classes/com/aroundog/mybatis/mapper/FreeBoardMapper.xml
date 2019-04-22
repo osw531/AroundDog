@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="FreeBoard">
+
+	<sql id="sql_select">
+		select freeboard_id,member_id,pass,title,content,regdate,hit,secret,team,rank,depth from freeboard
+	</sql>
+	<select id="selectAll"  resultType="FreeBoard">
+		<include refid="sql_select"/> order by freeboard_id desc
+	</select>
+
+
+</mapper>
