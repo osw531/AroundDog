@@ -10,7 +10,6 @@
 	$(function() {
 		$("input[name='regist']").click(
 				function() {
-
 					if ($("#title").val() == "" || $("#type").val() == "견종 선택"
 							|| $("#startdate").val() == ""
 							|| $("#enddate").val() == ""
@@ -19,16 +18,16 @@
 							|| markers.length == 0) {
 						alert("빈칸을 채워주세요!!");
 					} else {
-						report();
+						regist();
 					}
 				});
 		$("input[name='list']").click(function() {
 			alert("목록으로");
 			//location.href="";
 		});
-		askType();
+		//askType();
 	});
-
+/* 
 	function askType() {
 		$.ajax({
 			url : "/rest/lostboard/types",
@@ -42,16 +41,16 @@
 	function setData() {
  		alert("나 만든다");
  		/*
-		alert(result[1].type_id+result[1].info); */
+		alert(result[1].type_id+result[1].info); 
 		//$("#imgDiv img").remove(); //중첩되서 나오지 않게!!
 		var option = $("<option>");
 		option.attr("value","1");
 		option.attr("text","2");
 		option.appendTo("#typeaa");
 	}
+	 */
 	
-	
-	function report() {
+	function regist(){
 		alert("등록 되었습니다!");
 		$("form").attr({
 			method : "post",
@@ -179,8 +178,7 @@
 				<div class="menu-content pb-60 col-lg-9">
 					<div class="title text-center">
 						<h1 class="mb-20">길 잃은 강아지를 보호하고 있다면 게시물을 작성해주세요!!</h1>
-						<p>아래의 양식을 빠짐없이 입력하고 '글 등록' 버튼을 눌러주세요</p>
-						<input type="button" value="s" onClick="setData()"/>
+						<p>아래의 양식을 빠짐없이 입력하고 '글 등록' 버튼을 눌러주세요</p>						
 					</div>
 				</div>
 			</div>
@@ -188,13 +186,15 @@
 				<form class="col-lg-9" enctype="multipart/form-data">
 					<input type="hidden" name="member_id" value="1" />
 					<div class="form-group">
-						<label for="first-name">제목</label> <input type="text" name="title"
-							class="form-control" placeholder="제목을 작성해주세요" id="title">
+						<label for="first-name">제목</label> 
+						<input type="text" name="title"	class="form-control" placeholder="제목을 작성해주세요" id="title">
 					</div>
 					<label for="first-name">견종</label>
 					<div class="select-option" id="service-select">
-						<select id="typeaa" name="typeaa" required>
+						<select id="info" name="info" required>
 							<option>견종 선택</option>
+							<option>치와와</option>
+							<option>포메라니안</option>
 						</select> 						
 					</div>
 					<br> <br>
@@ -229,8 +229,8 @@
 
 					<div class="select-option" id="service-select">
 						<div id="googleMap" style="width: 100%; height: 500px;"></div>
-						<input type="hidden" name="lati" /> <input type="hidden"
-							name="longi" />
+						<input type="hidden" name="lati" /> 
+						<input type="hidden" name="longi" />
 					</div>
 					<hr>
 					<!-- Google Map 끝 -->

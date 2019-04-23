@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Type">
-	<select id="selectAll" resultType="Type">
-	select type_id,info from type order by info asc
+	<select id="select" resultType="Type" parameterType="int">
+		select type_id,info from type where type_id=#{type_id}
 	</select>
 </mapper>

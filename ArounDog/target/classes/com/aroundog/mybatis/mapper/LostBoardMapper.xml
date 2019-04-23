@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="LostBoard">
+	<insert id="insert" parameterType="LostBoard" >
+		insert into lostboard(lostboard_id,type_id,title,content,startdate,enddate,lati,longi)
+		values(seq_lostboard.nextval,#{type.type_id},#{title},#{content},#{startdate},#{enddate},#{lati},#{longi})
+	<selectKey resultType="int" keyProperty="lostboard_id">
+      select seq_lostboard.currval as lostboard_id from dual
+   </selectKey>  
+	</insert>
+	
+	<resultMap type="LostBoard" id="lostBoardType">
+		<id column="lostboard_id" property="lostboard_id"/>
+		<result column="title" property="title"/>
+		<result column="content" property="content"/>
+		<result column="startdate" property="startdate"/>
+		<result column="enddate" property="enddate"/>
+		<result column="lati" property="lati"/>
+		<result column="longi" property="longi"/>
+		<association column="type_id" property="type"
+		javaType="Type" select="Type.select"></association>
+	</resultMap> 
+	
+	<select id="selectAll" resultMap="lostBoardType">
+		select lostboard_id,title,content,startdate,enddate,lati,longi,type_id from lostboard
+	</select>
+</mapper>
