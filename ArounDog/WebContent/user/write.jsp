@@ -1,3 +1,5 @@
+<%@page import="com.aroundog.model.domain.Type"%>
+<%@page import="java.util.List"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
@@ -6,23 +8,56 @@
 <script>
 	//제출 기능 시작 ---------------------------
 	$(function() {
-		$("input[type='button']").click(function() {
+		$("input[name='regist']").click(
+				function() {
 
-			if ($("#title").val() == ""||$("#phone").val() == ""||$("#email").val() == ""||$("#content").val() == ""||$("#area").val() == "지역 선택"||markers.length==0) {
-				alert("빈칸을 채워주세요!!");
-			}else {
-				report();
+					if ($("#title").val() == "" || $("#type").val() == "견종 선택"
+							|| $("#startdate").val() == ""
+							|| $("#enddate").val() == ""
+							|| $("#content").val() == ""
+							|| $("#area").val() == "지역 선택"
+							|| markers.length == 0) {
+						alert("빈칸을 채워주세요!!");
+					} else {
+						report();
+					}
+				});
+		$("input[name='list']").click(function() {
+			alert("목록으로");
+			//location.href="";
+		});
+		askType();
+	});
+
+	function askType() {
+		$.ajax({
+			url : "/rest/lostboard/types",
+			type : "get",
+			success : function(result) {
+				//setType(result);
 			}
 		});
-	});
+	}
+
+	function setData() {
+ 		alert("나 만든다");
+ 		/*
+		alert(result[1].type_id+result[1].info); */
+		//$("#imgDiv img").remove(); //중첩되서 나오지 않게!!
+		var option = $("<option>");
+		option.attr("value","1");
+		option.attr("text","2");
+		option.appendTo("#typeaa");
+	}
+	
+	
 	function report() {
 		alert("등록 되었습니다!");
 		$("form").attr({
 			method : "post",
-			action : "/user/report"
+			action : "/user/lostboard"
 		});
 		$("form").submit();
-
 	}
 
 	//----------------------------------제출 기능 끝
@@ -86,6 +121,7 @@
 </script>
 </head>
 <body>
+	
 	<header id="header" id="home">
 		<div class="container main-menu">
 			<div class="row align-items-center justify-content-between d-flex">
@@ -135,7 +171,7 @@
 		</div>
 	</section>
 	<!-- End banner Area -->
-
+	
 	<!-- Start Volunteer-form Area -->
 	<section class="Volunteer-form-area section-gap">
 		<div class="container">
@@ -144,6 +180,7 @@
 					<div class="title text-center">
 						<h1 class="mb-20">길 잃은 강아지를 보호하고 있다면 게시물을 작성해주세요!!</h1>
 						<p>아래의 양식을 빠짐없이 입력하고 '글 등록' 버튼을 눌러주세요</p>
+						<input type="button" value="s" onClick="setData()"/>
 					</div>
 				</div>
 			</div>
@@ -151,55 +188,64 @@
 				<form class="col-lg-9" enctype="multipart/form-data">
 					<input type="hidden" name="member_id" value="1" />
 					<div class="form-group">
-						<label for="first-name">제목</label> 
-						<input type="text" name="title"	class="form-control" placeholder="제목을 작성해주세요" id="title">
+						<label for="first-name">제목</label> <input type="text" name="title"
+							class="form-control" placeholder="제목을 작성해주세요" id="title">
 					</div>
+					<label for="first-name">견종</label>
+					<div class="select-option" id="service-select">
+						<select id="typeaa" name="typeaa" required>
+							<option>견종 선택</option>
+						</select> 						
+					</div>
+					<br> <br>
 					<div class="form-group">
-						<label for="first-name">보호 기간</label> 
-						<input type="text" name="startdate"	class="form-control" placeholder="보호 시작 날짜  xxxx.xx.xx" id="startdate">
-						<br>
-						<input type="text" name="enddate"	class="form-control" placeholder="보호 종료 날짜  xxxx.xx.xx" id="enddate">
+						<label for="first-name">보호 기간</label> <input type="text"
+							name="startdate" class="form-control"
+							placeholder="보호 시작 날짜  xxxx.xx.xx" id="startdate"> <br>
+						<input type="text" name="enddate" class="form-control"
+							placeholder="보호 종료 날짜  xxxx.xx.xx" id="enddate">
 					</div>
 					<div class="form-row" style="display: block">
 						<div class="col-6 mb-30">
 							<label for="City">발견위치</label>
+
 							<div class="select-option" id="service-select">
-									<select name="area" id="area" onchange="areaChange()" required>
-										<option data-display="지역 선택">지역 선택</option>
-										<option value="서울">서울</option>
-										<option value="경기도">경기도</option>
-										<option value="인천">인천</option>
-										<option value="강원도">강원도</option>
-										<option value="부산">부산</option>
-										<option value="광주">광주</option>
-										<option value="대전">대전</option>
-									</select>
-								</div>
+								<select name="area" id="area" onchange="areaChange()" required>
+									<option data-display="지역 선택">지역 선택</option>
+									<option value="서울">서울</option>
+									<option value="경기도">경기도</option>
+									<option value="인천">인천</option>
+									<option value="강원도">강원도</option>
+									<option value="부산">부산</option>
+									<option value="광주">광주</option>
+									<option value="대전">대전</option>
+								</select>
+
 							</div>
 						</div>
-						<br>
-						<!-- Google Map 관련 -->
+					</div>
+					<br> <br> <label for="note">▶지도에서 정확한 위치를 클릭해주세요!</label>
+					<!-- Google Map 관련 -->
 
-						<div class="select-option" id="service-select">
-							<div id="googleMap" style="width:100%; height: 500px;"></div>
-							<input type="hidden" name="lati" /> <input type="hidden"
-								name="longi" />
-						</div>
+					<div class="select-option" id="service-select">
+						<div id="googleMap" style="width: 100%; height: 500px;"></div>
+						<input type="hidden" name="lati" /> <input type="hidden"
+							name="longi" />
+					</div>
+					<hr>
+					<!-- Google Map 끝 -->
+					<div class="form-group" style="width: 100%">
+						<label for="note">상세내용</label>
+						<textarea class="form-control" name="content" rows="5"
+							placeholder="보호하고 있는 동물에 대해서 상세한 내용을 적어주세요" id="content"></textarea>
 						<hr>
-						<!-- Google Map 끝 -->
-						<div class="form-group" style="width: 100%">
-							<label for="note">상세내용</label>
-							<textarea class="form-control" name="content" rows="5"
-								placeholder="보호하고 있는 동물에 대해서 상세한 내용을 적어주세요" id="content"></textarea>
-							<hr>
-							<label for="note">사진이 있다면 첨부해주세요!</label>
-							<br>
-							<label for="note">▶최대 3개</label>
-							<br>
-							<input type="file" 	 name="myFile" multiple  /> 
-							<input type="button"	value="제보하기" class="primary-btn float-right" />
-							<input type="button"	value="목록으로" class="primary-btn float-right" />
-						</div>
+						<label for="note">사진이 있다면 첨부해주세요!</label> <br> <label
+							for="note">▶최대 3개</label> <br> <input type="file"
+							name="myFile" multiple /> <input type="button" name="regist"
+							value="제보하기" class="primary-btn float-right" /> <input
+							type="button" name="list" value="목록으로"
+							class="primary-btn float-right" />
+					</div>
 				</form>
 			</div>
 		</div>
@@ -299,6 +345,7 @@
 			</div>
 		</div>
 	</footer>
+	
 	<!-- End footer Area -->
 	<%@include file="/user/inc/tail.jsp"%>
 </body>

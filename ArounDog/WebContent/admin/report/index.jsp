@@ -34,9 +34,7 @@
 </style>
 </head>
 <script>
-	
-<%@ include file="/admin/inc/pagechange.jsp" %>
-	
+<%@ include file="/admin/inc/pagechange.jsp" %>	
 </script>
 <body>
 	<form>
@@ -88,9 +86,9 @@
 			</tr>
 			<%}	%>
 			<tr>
-				<td colspan="5" align="center">
+		<td colspan="5" align="center">
 				<%if(pager.getFirstPage()-1>0){ %>
-					<a href="/notice/list.jsp?currentPage<%=pager.getFirstPage()-1%>">◀</a>
+					<a href="/reports?currentPage=<%=pager.getFirstPage()-1%>">◀</a>
 				<%}else{ %>
 					<a href="javascript:alert('첫번째 페이지입니다');">◀</a>
 				<%} %>
@@ -99,7 +97,7 @@
 						 <a href="/reports?currentPage=<%=i%>">[<%=i%>]</a> 
 						 <%	} %>
 				<%if(pager.getLastPage()+1<pager.getTotalPage()){ %>
-					<a href="/notice/list.jsp?currentPage=<%=pager.getLastPage()+1%>">▶</a>
+					<a href="/reports?currentPage=<%=pager.getLastPage()+1%>">▶</a>
 				<%}else{ %>
 					<a href="javascript:alert('마지막 페이지입니다!');">▶</a>
 				<%} %>

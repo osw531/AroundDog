@@ -22,6 +22,7 @@ import com.aroundog.model.domain.ReportImg;
 import com.aroundog.model.service.AdminService;
 import com.aroundog.model.service.FreeBoardService;
 import com.aroundog.model.service.ReportService;
+import com.itbank.common.pager.Pager;
 
 @Controller
 public class AdminController {
@@ -32,6 +33,7 @@ public class AdminController {
 	private FreeBoardService freeBoardService;
 	@Autowired
 	private ReportService reportService;
+	
 	//userservice-->사용
 	//관리자 로그인 요청
 	@RequestMapping(value="/admin/login", method=RequestMethod.GET)
@@ -62,31 +64,23 @@ public class AdminController {
 	@RequestMapping(value="/reports",method=RequestMethod.GET)
 	public ModelAndView reportList() {	
 		List reportList=reportService.selectAll();//모델앤뷰로 리스트 반환하고.. jsp에서 리스트 받아서 목록 출력!!
-		System.out.println("Report테이블의 사이즈는"+reportList.size());
 		ModelAndView mav = new ModelAndView("admin/report/index");
 		mav.addObject("reportList", reportList);
 		return mav;
 	} 
 	
 	@RequestMapping(value="/reports/{report_id}",method=RequestMethod.GET) 
-	public ModelAndView select(@PathVariable("report_id") int report_id) {
-		System.out.println("admin/report의 detail 실행함!!");		
-		  ModelAndView mav = new ModelAndView("admin/report/detail"); 
-		  Report report =  reportService.select(report_id); 
-		  System.out.println("report_id는"+report_id);
-	  
-		  mav.addObject("report",report);
-		 
+	public ModelAndView select(@PathVariable("report_id") int report_id) {	
+		ModelAndView mav = new ModelAndView("admin/report/detail"); 
+		Report report =  reportService.select(report_id); 
+		mav.addObject("report",report); 
 		return mav;
 	}
 	
 	@RequestMapping(value="/reportsimg/{report_id}",method=RequestMethod.GET)
 	@ResponseBody
 	public String selectImg(@PathVariable("report_id") int report_id) {
-		System.out.println("첨부파일 볼래?"+report_id);
 		List<ReportImg> imgList = reportService.selectImg(report_id);
-		System.out.println("이미지 리스트 크기는 " +imgList.size());
-		
 		JSONArray jsonArray = new JSONArray();
 		for(int i = 0;i<imgList.size();i++) {
 			ReportImg ri = imgList.get(i);
@@ -95,19 +89,29 @@ public class AdminController {
 			
 			jsonArray.add(obj);
 		}
-		System.out.println(jsonArray.toString());
 		return jsonArray.toString();
 		
 	}
 	
 	@RequestMapping(value="/reports/check",method=RequestMethod.POST)
 	public String update(@RequestParam("report_id") int report_id) {
-		System.out.println("업데이트 할거니? 넘긴 아이디는"+report_id);
 		reportService.update(report_id);
-		System.out.println("업데이트 이후");
-		//return "redirect:/admin/report/index.jsp";
 		return "redirect:/reports";
 	}
+	
+	/*
+	 * @RequestMapping(value="reports/prev",method=RequestMethod.GET)
+	 * 
+	 * @ResponseBody public String prev(@RequestParam("currentPage") int
+	 * currentPage) { System.out.println("받은 커런트값"+currentPage);
+	 * System.out.println("설정전 커런트값"+pager.getCurrentPage());
+	 * System.out.println("설정전 퍼스트"+pager.getFirstPage());
+	 * pager.setCurrentPage(currentPage);
+	 * System.out.println("설정후 커런트값"+pager.getCurrentPage());
+	 * System.out.println("설정 후 퍼슼트값"+pager.getFirstPage());
+	 * 
+	 * return null; }
+	 */
 	
 	//#---------------------------------------------Report 관련 끝
 	
