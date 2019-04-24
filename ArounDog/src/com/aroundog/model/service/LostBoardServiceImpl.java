@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.aroundog.common.exception.EditFailException;
 import com.aroundog.common.exception.ReportFailException;
 import com.aroundog.model.domain.LostBoard;
 import com.aroundog.model.domain.LostBoardImg;
@@ -37,4 +38,21 @@ public class LostBoardServiceImpl implements LostBoardService{
 		return lostBoardDAO.selectAll();
 	}
 
+	@Override
+	public LostBoard select(int lostboard_id) {
+		return lostBoardDAO.select(lostboard_id);
+	}
+
+	@Override
+	public List selectImg(int lostboard_id) {
+		return lostBoardDAO.selectImg(lostboard_id);
+	}
+
+	@Override
+	public void update(int lostboard_id) throws EditFailException{
+		int result = lostBoardDAO.update(lostboard_id);
+		if(result==0){
+			throw new EditFailException("수정 실패");
+		}	
+	}
 }

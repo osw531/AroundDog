@@ -1,88 +1,38 @@
+<%@page import="com.aroundog.model.domain.LostBoardImg"%>
+<%@page import="java.util.List"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@page import="com.aroundog.model.domain.LostBoard"%>
+<% 
+	LostBoard lostBoard = (LostBoard)request.getAttribute("lostBoard");
+	List imgList = (List)request.getAttribute("imgList");
+%>
+
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 <head>
-<%@ include file="/user/inc/head.jsp"%>
+<%@include file="/user/inc/head.jsp" %>
 <script>
-	//제출 기능 시작 ---------------------------
-	$(function() {
-		$("input[type='button']").click(function() {
-
-			if ($("#title").val() == ""||$("#phone").val() == ""||$("#email").val() == ""||$("#content").val() == ""||$("#area").val() == "지역 선택"||markers.length==0) {
-				alert("빈칸을 채워주세요!!");
-			}else {
-				report();
-			}
-		});
+	$(function(){
+	$($("input[type='button']")[0]).click(function(){
+		location.href="/user/lostboard/lostboardlist";
 	});
-	function report() {
-		alert("등록 되었습니다!");
-		$("form").attr({
-			method : "post",
-			action : "/user/report"
-		});
-		$("form").submit();
+});
 
-	}
+function myMap() {
+	var latLng = new google.maps.LatLng(<%=lostBoard.getLati()%>,<%=lostBoard.getLongi()%>);
+	var mapProp = {
+		center : latLng,
+		zoom : 16
+	};
+	map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+	var marker = new google.maps.Marker({
+		position: latLng,
+		animation:google.maps.Animation.BOUNCE,
+		icon:"/user/img/find_marker.png"
+	});
+	marker.setMap(map);
+}
 
-	//----------------------------------제출 기능 끝
-
-	// -------------------------------------------------------Google Map 관련------------------------
-
-	//강아지 발견한 위치 지도에 찍기 -------------
-	var map;
-	function myMap() {
-		var latLng = new google.maps.LatLng(37.571066, 126.992255);
-		var mapProp = {
-			center : latLng,
-			zoom : 12
-		};
-		map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-		google.maps.event.addListener(map, 'click', function(event) {
-			deleteMarker();
-			addMarker(map, event.latLng);
-		});
-
-		google.maps.event.addListener(map, 'click', function(event) {
-			//alert( "Latitude: "+event.latLng.lat()+" "+", longitude: "+event.latLng.lng() );  // <- 클릭한 위도 경도 값 확인
-			$($("form").find("input[name='lati']")).val(event.latLng.lat()); //서버에 위도 경도 넘겨주어야하니까 히든 값 설정
-			$($("form").find("input[name='longi']")).val(event.latLng.lng());
-			//alert($($("form").find("input[name='area_lati']")).val()); // 히든값 제대로 들어오는거 확인   
-		});
-	}
-	var markers = [];
-	function addMarker(map, area) {
-		var marker = new google.maps.Marker({
-			position : area,
-			icon : "/user/img/find_marker.png",
-			map : map
-		});
-		markers.push(marker);
-	}
-	function deleteMarker() {
-		for (var i = 0; i < markers.length; i++) {
-			markers[i].setMap(null);
-		}
-		markers = [];
-	}
-
-	// -------------강아지 발견한 위치 지도에 찍기 끝
-
-	//select 바꾸면 지도 줌 바꾸기 -------------
-	function areaChange() {
-		$.ajax({
-			url : "/user/map/area",
-			type : "get",
-			data : {
-				area : $("select[name='area']").val()
-			},
-			success : function(result) {
-				var json = JSON.parse(result);
-				map.setCenter(new google.maps.LatLng(json.lati, json.longi));
-			}
-		});
-	}
-	//-------------select 바꾸면 지도 줌 바꾸기  끝
 </script>
 </head>
 <body>
@@ -90,7 +40,7 @@
 		<div class="container main-menu">
 			<div class="row align-items-center justify-content-between d-flex">
 				<div id="logo">
-					<a href="index.html"><img src="img/logo.png" alt="" title="" /></a>
+					<a href="index.html"><img src="/user/img/logo.png" alt="" title="" /></a>
 				</div>
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
@@ -129,7 +79,7 @@
 		<div class="container">
 			<div class="row d-flex align-items-center justify-content-center">
 				<div class="about-content col-lg-12">
-					<h1 class="text-white">제보하기</h1>
+					<h1 class="text-white">임시보호 게시판</h1>
 				</div>
 			</div>
 		</div>
@@ -142,62 +92,47 @@
 			<div class="row d-flex justify-content-center">
 				<div class="menu-content pb-60 col-lg-9">
 					<div class="title text-center">
-						<h1 class="mb-20">가여운 동물을 제보해주세요</h1>
-						<p>아래의 양식을 빠짐없이 입력하고 '제보하기' 버튼을 눌러주세요</p>
+						<h1 class="mb-20"><%=lostBoard.getTitle()%></h1>
 					</div>
 				</div>
 			</div>
 			<div class="row justify-content-center">
 				<form class="col-lg-9" enctype="multipart/form-data">
 					<input type="hidden" name="member_id" value="1" />
-					<div class="form-group">
-						<label for="first-name">제목</label> <input type="text" name="title"
-							class="form-control" placeholder="제목을 작성해주세요" id="title">
-					</div>
-					<div class="form-group">
-						<label for="first-name">전화번호</label> <input type="text"
-							name="phone" class="form-control" placeholder="연락받을 전화번호"
-							id="phone">
-					</div>
-
-					<div class="form-group">
-						<label for="last-name">이메일</label> <input type="text" name="email"
-							class="form-control" placeholder="연락받을 이메일" id="email">
-					</div>
-					<div class="form-row" style="display: block">
-						<div class="col-6 mb-30">
-							<label for="City">발견위치</label>
-							<div class="select-option" id="service-select">
-									<select name="area" id="area" onchange="areaChange()" required>
-										<option data-display="지역 선택">지역 선택</option>
-										<option value="서울">서울</option>
-										<option value="경기도">경기도</option>
-										<option value="인천">인천</option>
-										<option value="강원도">강원도</option>
-										<option value="부산">부산</option>
-										<option value="광주">광주</option>
-										<option value="대전">대전</option>
-									</select>
-								</div>
-							</div>
+					<div class="form-group" style="width: 100%">
+						<div contentEditable="false"><%for(int i=0;i<imgList.size();i++){ %>
+							<%LostBoardImg lbi = (LostBoardImg)imgList.get(i);%>
+	    						<img src="/data/<%=lbi.getImg()%> "style="width:30%"/>
+	    					<%} %>
+	    					
+	    				<hr>
+	    				<div class="form-group" style="width: 100%">
+						<textarea class="form-control" name="content" rows="5" readonly
+							placeholder="보호하고 있는 동물에 대해서 상세한 내용을 적어주세요" id="content"><%=lostBoard.getContent() %>	
+							</textarea>
+						<hr>			
+	    					</div>
 						</div>
-						<br>
+										<div class="form-row" style="display: block">
+							<label for="City">발견위치</label>
+							<hr>
+						</div>
 						<!-- Google Map 관련 -->
-
 						<div class="select-option" id="service-select">
 							<div id="googleMap" style="width: 80%; height: 500px;"></div>
-							<input type="hidden" name="lati" /> <input type="hidden"
-								name="longi" />
 						</div>
 						<hr>
-						<!-- Google Map 끝 -->
-						<div class="form-group" style="width: 100%">
-							<label for="note">상세내용</label>
-							<textarea class="form-control" name="content" rows="5"
-								placeholder="제보하려는 동물에 대해서 상세한 내용을 적어주세요" id="content"></textarea>
-							<hr>
-							<input type="file" 		name="myFile" multiple /> 
-							<input type="button"	value="제보하기" class="primary-btn float-right" />
+						<div class="form-group">
+						<label for="first-name">보호기간</label> 
+						<input type="text" class="form-control" name="startdate" value="<%=lostBoard.getStartdate()%>" readonly>
+						<br>
+						~
+						<br>
+						<br>
+						<input type="text" class="form-control" name="enddate" value="<%=lostBoard.getEnddate()%>" readonly>
+					</div>
+						<br>
+							<input type="button" value="목록으로" class="primary-btn float-right"  />
 						</div>
 				</form>
 			</div>
@@ -299,6 +234,7 @@
 		</div>
 	</footer>
 	<!-- End footer Area -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7s3c6u5G3n7koVQkGfBn_qLQarZjjHlc&callback=myMap"/>
 	<%@include file="/user/inc/tail.jsp"%>
 </body>
 </html>

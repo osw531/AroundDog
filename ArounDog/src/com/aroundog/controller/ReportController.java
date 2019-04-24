@@ -38,7 +38,6 @@ public class ReportController {
 
          File uploadFile = null;
          
-
          try {
             uploadFile = new File(realPath + "/" + filename);
             String ext = fileManager.getExt(filename);
@@ -52,10 +51,9 @@ public class ReportController {
                
             }
          } catch (IllegalStateException | IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        	 System.out.println("이 사용자는 파일을 등록하지 않았습니다");
          }
       }
-      return "user/index";
+      return "redirect:/user/index.jsp";
    }
 }

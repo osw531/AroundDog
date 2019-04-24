@@ -13,17 +13,18 @@ public class LostBoard {
 	private double lati;
 	private double longi;
 	private Type type;
-	private MultipartFile[] myfile;
+	private MultipartFile[] myFile;
 	//private Member mebmer;
 	
-	public MultipartFile[] getMyfile() {
-		return myfile;
-	}
-	public void setMyfile(MultipartFile[] myfile) {
-		this.myfile = myfile;
-	}
+	
 	public int getLostboard_id() {
 		return lostboard_id;
+	}
+	public MultipartFile[] getMyFile() {
+		return myFile;
+	}
+	public void setMyFile(MultipartFile[] myFile) {
+		this.myFile = myFile;
 	}
 	public void setLostboard_id(int lostboard_id) {
 		this.lostboard_id = lostboard_id;

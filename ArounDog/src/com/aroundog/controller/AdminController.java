@@ -59,7 +59,7 @@ public class AdminController {
 		return "admin/user/index";
 	}
 	
-	//Report 관련 ---------------------------------------------#
+	//Report 관련 ---------------------------------------------#	
 	
 	@RequestMapping(value="/reports",method=RequestMethod.GET)
 	public ModelAndView reportList() {	
@@ -85,8 +85,7 @@ public class AdminController {
 		for(int i = 0;i<imgList.size();i++) {
 			ReportImg ri = imgList.get(i);
 			JSONObject obj = new JSONObject();
-			obj.put("img", ri.getImg());
-			
+			obj.put("img", ri.getImg());			
 			jsonArray.add(obj);
 		}
 		return jsonArray.toString();

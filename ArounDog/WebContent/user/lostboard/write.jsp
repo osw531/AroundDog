@@ -10,7 +10,7 @@
 	$(function() {
 		$("input[name='regist']").click(
 				function() {
-					if ($("#title").val() == "" || $("#type").val() == "견종 선택"
+					if ($("#title").val() == "" || $("#type_id").val() == "견종 선택"
 							|| $("#startdate").val() == ""
 							|| $("#enddate").val() == ""
 							|| $("#content").val() == ""
@@ -120,12 +120,11 @@
 </script>
 </head>
 <body>
-	
 	<header id="header" id="home">
 		<div class="container main-menu">
 			<div class="row align-items-center justify-content-between d-flex">
 				<div id="logo">
-					<a href="index.html"><img src="img/logo.png" alt="" title="" /></a>
+					<a href="index.html"><img src="/user/img/logo.png" alt="" title="" /></a>
 				</div>
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
@@ -191,10 +190,23 @@
 					</div>
 					<label for="first-name">견종</label>
 					<div class="select-option" id="service-select">
-						<select id="info" name="info" required>
+						<select id="type_id" name="type_id" required>
 							<option>견종 선택</option>
-							<option>치와와</option>
-							<option>포메라니안</option>
+							<option value="1">골든 리트리버</option>
+							<option value="3">닥스훈트</option>
+							<option value="7">말티즈</option>
+							<option value="14">불독</option>
+							<option value="18">비글</option>
+							<option value="19">비숑 프리제</option>
+							<option value="20">사모예드</option>
+							<option value="21">삽살개</option>
+							<option value="25">시바견</option>
+							<option value="26">시베리안 허스키</option>
+							<option value="42">진돗개</option>
+							<option value="44">치와와</option>
+							<option value="36">요크셔 테리어</option>
+							<option value="46">포메라니안</option>
+							<option value="48">푸들</option>
 						</select> 						
 					</div>
 					<br> <br>
@@ -220,7 +232,6 @@
 									<option value="광주">광주</option>
 									<option value="대전">대전</option>
 								</select>
-
 							</div>
 						</div>
 					</div>
@@ -240,8 +251,8 @@
 							placeholder="보호하고 있는 동물에 대해서 상세한 내용을 적어주세요" id="content"></textarea>
 						<hr>
 						<label for="note">사진이 있다면 첨부해주세요!</label> <br> <label
-							for="note">▶최대 3개</label> <br> <input type="file"
-							name="myFile" multiple /> <input type="button" name="regist"
+							for="note">▶최대 3개</label> <br>
+							 <input type="file"	name="myFile" multiple /> <input type="button" name="regist"
 							value="제보하기" class="primary-btn float-right" /> <input
 							type="button" name="list" value="목록으로"
 							class="primary-btn float-right" />
@@ -347,6 +358,7 @@
 	</footer>
 	
 	<!-- End footer Area -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7s3c6u5G3n7koVQkGfBn_qLQarZjjHlc&callback=myMap" />
 	<%@include file="/user/inc/tail.jsp"%>
 </body>
 </html>

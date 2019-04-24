@@ -10,7 +10,7 @@
       select seq_lostboard.currval as lostboard_id from dual
    </selectKey>  
 	</insert>
-	
+
 	<resultMap type="LostBoard" id="lostBoardType">
 		<id column="lostboard_id" property="lostboard_id"/>
 		<result column="title" property="title"/>
@@ -21,9 +21,18 @@
 		<result column="longi" property="longi"/>
 		<association column="type_id" property="type"
 		javaType="Type" select="Type.select"></association>
-	</resultMap> 
+	</resultMap>
 	
-	<select id="selectAll" resultMap="lostBoardType">
-		select lostboard_id,title,content,startdate,enddate,lati,longi,type_id from lostboard
+	
+ 	<select id="selectAll" resultMap="lostBoardType">
+		select * from lostboard order by lostboard_id desc 
+	</select> 
+	
+	<select id="select" resultType="LostBoard" parameterType="int">
+		select * from lostboard where lostboard_id=#{lostboard_id}
 	</select>
+	
+	<update id="update" parameterType="int">
+		update lostboard set hit = hit+1 where lostboard_id = #{lostboard_id}
+	</update>
 </mapper>
