@@ -2,6 +2,7 @@ package com.aroundog.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,8 +52,7 @@ public class LostBoardController {
 	            if (filename != null) {
 	             lostBoardImg.setImg(filename);   
 	             lostBoardImg.setLostboard(lostBoard);
-	             lostBoardService.insertImg(lostBoardImg);
-	               
+	             lostBoardService.insertImg(lostBoardImg);	               
 	            }
 	         } catch (IllegalStateException | IOException e) {
 	            System.out.println("이 사용자는 파일을 등록하지 않았습니다");
@@ -64,8 +64,27 @@ public class LostBoardController {
 	   
 	   @RequestMapping(value="/user/lostboard/lostboardlist",method = RequestMethod.GET)
 	   public ModelAndView goIndex() {
-		   List<LostBoard> lostBoardList = lostBoardService.selectAll();
+		   List<LostBoard> lostBoardList = lostBoardService.selectAll();//리스트가져옴
+		   //List<LostBoardImg> lostBoardImgList = lostBoardService.selectAllImg();
+		   List<LostBoardImg> thumbList = new ArrayList();
+		   List<Integer> idList= new ArrayList();
+		   for(int i=0;i<lostBoardList.size();i++) {
+			   LostBoard lb = lostBoardList.get(i);	   
+			   int lb_id = lb.getLostboard_id();
+			   LostBoardImg lbi=lostBoardService.selectThumb(lb_id);
+			   lbi.setLostboard_id(lb_id);
+			   thumbList.add(lbi);
+			   idList.add(lb_id);
+		   }
+		   for(int i=0;i<thumbList.size();i++) {
+			   LostBoardImg lbi = thumbList.get(i);
+			   int key=lbi.getLostboard_id();
+			   System.out.println("key"+key);
+		   }
+		   System.out.println("tth사이즈는"+thumbList.size());
 		   ModelAndView mav = new ModelAndView("user/lostboard/lostboardlist");
+		   mav.addObject("thumbList",thumbList);
+		   mav.addObject("idList",idList);
 		   mav.addObject("lostBoardList",lostBoardList);
 		   return mav;
 	   }

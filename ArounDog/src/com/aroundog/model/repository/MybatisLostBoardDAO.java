@@ -43,4 +43,14 @@ public class MybatisLostBoardDAO implements LostBoardDAO{
 		return sessionTemplate.update("LostBoard.update", lostboard_id);
 	}
 
+	@Override
+	public LostBoardImg selectThumb(int lostboard_id) {
+		return sessionTemplate.selectOne("LostBoardImg.selectThumb", lostboard_id);
+	}
+
+	@Override
+	public List selectAllImg() {
+		return sessionTemplate.selectList("LostBoardImg.selectAll");
+	}
+
 }

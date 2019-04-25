@@ -1,4 +1,4 @@
-<%@page import="com.itbank.common.pager.Pager"%>
+<%@page import="com.aroundog.common.Pager"%>
 <%@page import="com.aroundog.model.domain.Report"%>
 <%@page import="com.aroundog.model.domain.FreeBoard"%>
 <%@page import="java.util.List"%>

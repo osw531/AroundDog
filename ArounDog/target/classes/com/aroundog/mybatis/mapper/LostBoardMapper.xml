@@ -23,15 +23,18 @@
 		javaType="Type" select="Type.select"></association>
 	</resultMap>
 	
-	
+
  	<select id="selectAll" resultMap="lostBoardType">
-		select * from lostboard order by lostboard_id desc 
+		select * from lostboard order by lostboard_id desc
 	</select> 
 	
 	<select id="select" resultType="LostBoard" parameterType="int">
 		select * from lostboard where lostboard_id=#{lostboard_id}
 	</select>
 	
+		<select id="selectId" resultType="LostBoard" parameterType="int">
+		select lostboard_id from lostboard where lostboard_id=#{lostboard_id}
+	</select>
 	<update id="update" parameterType="int">
 		update lostboard set hit = hit+1 where lostboard_id = #{lostboard_id}
 	</update>

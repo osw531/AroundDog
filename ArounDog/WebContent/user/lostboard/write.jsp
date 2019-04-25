@@ -22,8 +22,7 @@
 					}
 				});
 		$("input[name='list']").click(function() {
-			alert("목록으로");
-			//location.href="";
+			location.href="/user/lostboard/lostboardlist"
 		});
 		//askType();
 	});

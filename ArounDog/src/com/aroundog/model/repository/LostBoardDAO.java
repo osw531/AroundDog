@@ -12,4 +12,6 @@ public interface LostBoardDAO {
 	public LostBoard select(int lostboard_id);
 	public List selectImg(int lostboard_id);
 	public int update(int lostboard_id);
+	public LostBoardImg selectThumb(int lostboard_id);
+	public List selectAllImg();
 }

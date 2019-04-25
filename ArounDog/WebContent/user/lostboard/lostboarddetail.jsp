@@ -132,7 +132,7 @@ function myMap() {
 						<input type="text" class="form-control" name="enddate" value="<%=lostBoard.getEnddate()%>" readonly>
 					</div>
 						<br>
-							<input type="button" value="목록으로" class="primary-btn float-right"  />
+							<input type="button" value="목록으로" class="primary-btn float-right"/>
 						</div>
 				</form>
 			</div>

@@ -4,6 +4,16 @@ public class LostBoardImg {
 	private int lostboardimg_id;
 	private LostBoard lostboard;
 	private String img;
+	private int lostboard_id;
+	
+
+	public int getLostboard_id() {
+		return lostboard_id;
+	}
+
+	public void setLostboard_id(int lostboard_id) {
+		this.lostboard_id = lostboard_id;
+	}
 
 	public int getLostboardimg_id() {
 		return lostboardimg_id;

@@ -1,11 +1,16 @@
-<%@page import="com.itbank.common.pager.Pager"%>
+<%@page import="java.util.Collections"%>
+<%@page import="java.util.Collection"%>
+<%@page import="com.aroundog.common.Pager"%>
+<%@page import="com.aroundog.model.domain.LostBoardImg"%>
 <%@page import="com.aroundog.model.domain.LostBoard"%>
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%!Pager pager = new Pager();%>
 <%
 	List<LostBoard> lostBoardList = (List) request.getAttribute("lostBoardList");
+	List<LostBoardImg> thumbList = (List)request.getAttribute("thumbList");
 	pager.init(request, lostBoardList.size());
+	Collections.reverse(thumbList);//게시판이 desc로 나오니까 list도 역순으로 해줘서 아이디맞추기위함
 %>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
@@ -13,6 +18,13 @@
 <!-- Site Title -->
 <title>Animal Shelter</title>
 <%@ include file="/user/inc/head.jsp"%>
+<script>
+$(function(){
+	$($("input[type='button']")[0]).click(function(){
+		location.href="/user/lostboard/write.jsp";
+	});
+});
+</script>
 </head>
 <body>
 	<header id="header" id="home">
@@ -71,28 +83,43 @@
 		<div class="progress-table-wrap">
 			<div class="progress-table">
 				<div class="table-head">
-					<div class="serial">No</div>
-					<div class="country">제목</div>
-					<div class="visit">견종</div>
-					<div class="visit">게시일</div>
-					<div class="visit">조회수</div>
+					<div class="serial" style="width:10%,text-align:center">No</div>
+					<div class="country" style="width:40%,text-align:center">제목</div>
+					<div class="visit" style="width:10%,text-align:center" style="text-align:center">견종</div>
+					<div class="visit" style="width:30%,text-align:center">게시일</div>
+					<div class="visit" style="width:10%,text-align:center">조회수</div>
 				</div>
 				<%int num = pager.getNum();%>
 				<%int curPos = pager.getCurPos();%>
 				<%for (int i = 0; i < pager.getPageSize(); i++) {%>
 				<%	if (num < 1)	break;%>
-				<%	LostBoard lostBoard = lostBoardList.get(curPos++);	%> 
-				<div class="serial"><%=num-- %></div>
-					<div class="country">
-						<!-- <img src="img/elements/f1.jpg" alt="flag"> -->
+				<%	LostBoard lostBoard = lostBoardList.get(curPos++);	
+				%> 
+				<div class="table-row">
+					<div class="serial" style="width:10%,text-align:center"><%=num-- %></div>
+					<div class="country" style="width:40%,text-align:center">
+						<%String thumbName = null; %>
+				  	<%for(int j=0;j<thumbList.size();j++){ %>
+					<% 
+						LostBoardImg lbi = thumbList.get(j);
+						if(lbi.getLostboard_id()==lostBoard.getLostboard_id()){
+							thumbName = thumbList.get(lbi.getLostboard_id()-1).getImg();
+							
+						}
+
+						%>
+				<%} %>
+						<img src="/data/<%=thumbName%>" alt="flag" style="width:50px">
 						<a href="/user/lostboard/lostboardlist/<%=lostBoard.getLostboard_id()%>"><%=lostBoard.getTitle()%></a>
 					</div>
-					<div class="visit"><%=lostBoard.getType().getInfo()%></div>
-					<div class="visit"><%=lostBoard.getRegdate() %></div>
-					<div class="visit"><%=lostBoard.getContent() %></div>
-					<div class="visit"><%=lostBoard.getHit()%></div>
-				<%}	%>
-				<div class="visit">
+					<div class="visit" style="width:10%,text-align:center"><%=lostBoard.getType().getInfo()%></div>
+					<div class="visit" style="width:30%,text-align:center"><%=lostBoard.getRegdate() %></div>
+					<div class="visit" style="width:10%,text-align:center"><%=lostBoard.getHit()%></div>
+				</div>
+				<%}%>
+				
+				<div class="table-row" style="text-align:center"></div>
+				<div class="dsd" style="text-align:center">
 				<%if(pager.getFirstPage()-1>0){ %>
 					<a href="/user/lostboard/lostboardlist?currentPage=<%=pager.getFirstPage()-1%>">◀</a>
 				<%}else{ %>
@@ -107,11 +134,11 @@
 				<%}else{ %>
 					<a href="javascript:alert('마지막 페이지입니다!');">▶</a>
 				<%} %>
+				<input type="button" value="글 쓰기" class="primary-btn float-right"/>
 				</div>
 			</div>
 		</div>
 	</div>
-
 	<!-- start footer Area -->
 	<footer class="footer-area">
 		<div class="container">

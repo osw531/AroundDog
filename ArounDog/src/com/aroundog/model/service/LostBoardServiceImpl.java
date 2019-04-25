@@ -55,4 +55,14 @@ public class LostBoardServiceImpl implements LostBoardService{
 			throw new EditFailException("수정 실패");
 		}	
 	}
+
+	@Override
+	public LostBoardImg selectThumb(int lostboard_id) {
+		return lostBoardDAO.selectThumb(lostboard_id);
+	}
+
+	@Override
+	public List selectAllImg() {
+		return lostBoardDAO.selectAllImg();
+	}
 }

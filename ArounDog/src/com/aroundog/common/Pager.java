@@ -1,4 +1,4 @@
-package com.itbank.common.pager;
+package com.aroundog.common;
 
 import javax.servlet.http.HttpServletRequest;
 

@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.aroundog.common.Pager;
 import com.aroundog.model.domain.Admin;
 import com.aroundog.model.domain.Report;
 import com.aroundog.model.domain.ReportImg;
 import com.aroundog.model.service.AdminService;
 import com.aroundog.model.service.FreeBoardService;
 import com.aroundog.model.service.ReportService;
-import com.itbank.common.pager.Pager;
 
 @Controller
 public class AdminController {

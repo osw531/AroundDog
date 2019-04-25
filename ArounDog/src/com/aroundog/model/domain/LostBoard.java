@@ -14,11 +14,18 @@ public class LostBoard {
 	private double longi;
 	private Type type;
 	private MultipartFile[] myFile;
+	private String img;
 	//private Member mebmer;
 	
 	
 	public int getLostboard_id() {
 		return lostboard_id;
+	}
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
 	}
 	public MultipartFile[] getMyFile() {
 		return myFile;
