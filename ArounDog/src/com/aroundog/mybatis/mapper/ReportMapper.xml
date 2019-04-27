@@ -16,7 +16,7 @@
       from report
    </sql>
    
-   <select id="selectAll" resultType="Report" >
+   <select  id="selectAll" resultType="Report" >
       <include refid="sql_select"/> order by report_id desc
    </select>
    

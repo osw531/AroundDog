@@ -1,30 +1,23 @@
 <%@page import="java.util.Collections"%>
-<%@page import="java.util.Collection"%>
-<%@page import="com.aroundog.common.Pager"%>
 <%@page import="com.aroundog.model.domain.LostBoardImg"%>
+<%@page import="com.aroundog.common.Pager"%>
 <%@page import="com.aroundog.model.domain.LostBoard"%>
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%!Pager pager = new Pager();%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%
 	List<LostBoard> lostBoardList = (List) request.getAttribute("lostBoardList");
 	List<LostBoardImg> thumbList = (List)request.getAttribute("thumbList");
-	pager.init(request, lostBoardList.size());
-	Collections.reverse(thumbList);//게시판이 desc로 나오니까 list도 역순으로 해줘서 아이디맞추기위함
+	Collections.reverse(lostBoardList);
 %>
 <!DOCTYPE html>
+
 <html lang="zxx" class="no-js">
 <head>
 <!-- Site Title -->
 <title>Animal Shelter</title>
 <%@ include file="/user/inc/head.jsp"%>
-<script>
-$(function(){
-	$($("input[type='button']")[0]).click(function(){
-		location.href="/user/lostboard/write.jsp";
-	});
-});
-</script>
 </head>
 <body>
 	<header id="header" id="home">
@@ -83,58 +76,53 @@ $(function(){
 		<div class="progress-table-wrap">
 			<div class="progress-table">
 				<div class="table-head">
-					<div class="serial" style="width:10%,text-align:center">No</div>
-					<div class="country" style="width:40%,text-align:center">제목</div>
-					<div class="visit" style="width:10%,text-align:center" style="text-align:center">견종</div>
-					<div class="visit" style="width:30%,text-align:center">게시일</div>
-					<div class="visit" style="width:10%,text-align:center">조회수</div>
+					<div class="serial" style="width:100px">No</div>
+					<div class="country">제목</div>
+					<div class="visit">견종</div>
+					<div class="visit">게시일</div>
+					<div class="visit">조회수</div>
 				</div>
-				<%int num = pager.getNum();%>
-				<%int curPos = pager.getCurPos();%>
-				<%for (int i = 0; i < pager.getPageSize(); i++) {%>
-				<%	if (num < 1)	break;%>
-				<%	LostBoard lostBoard = lostBoardList.get(curPos++);	
-				%> 
-				<div class="table-row">
-					<div class="serial" style="width:10%,text-align:center"><%=num-- %></div>
-					<div class="country" style="width:40%,text-align:center">
-						<%String thumbName = null; %>
-				  	<%for(int j=0;j<thumbList.size();j++){ %>
-					<% 
-						LostBoardImg lbi = thumbList.get(j);
-						if(lbi.getLostboard_id()==lostBoard.getLostboard_id()){
-							thumbName = thumbList.get(lbi.getLostboard_id()-1).getImg();
-							
-						}
-
-						%>
-				<%} %>
-						<img src="/data/<%=thumbName%>" alt="flag" style="width:50px">
-						<a href="/user/lostboard/lostboardlist/<%=lostBoard.getLostboard_id()%>"><%=lostBoard.getTitle()%></a>
+				<c:set var="curPos" value="${pager.curPos }"/>
+ 				<c:set var="num" value="${pager.num}"/>
+ 				<c:forEach var="lostBoard" items="${lostBoardList}" begin="${curPos}" end="${pager.curPos+pager.pageSize-1}">				
+					<div class="table-row">
+						<div class="serial" style="width:100px">${num}</div>
+						<div class="country">		
+							<c:set var="thumbName" value=""/>
+							<c:forEach var="thumb" items="${thumbList}" >
+								<c:set var="lbi" value="${thumb}"/>
+								<c:if test="${lbi.lostboard_id == lostBoard.lostboard_id}">
+									<c:set var="thumbName" value="${lbi.img}"/>
+								</c:if>
+							</c:forEach>
+							<img src="/data/${thumbName}" alt="flag" width="150" height="90">
+							<a href="/user/lostboard/lostboardlist/${lostBoard.lostboard_id}">${lostBoard.title}</a>
+						</div>
+						<div class="visit">${lostBoard.type.info}</div>
+						<div class="visit">${lostBoard.regdate}</div>
+						<div class="visit">${lostBoard.hit}</div>
 					</div>
-					<div class="visit" style="width:10%,text-align:center"><%=lostBoard.getType().getInfo()%></div>
-					<div class="visit" style="width:30%,text-align:center"><%=lostBoard.getRegdate() %></div>
-					<div class="visit" style="width:10%,text-align:center"><%=lostBoard.getHit()%></div>
-				</div>
-				<%}%>
-				
+					<c:set var="num" value="${num-1}"/>	
+				</c:forEach>
 				<div class="table-row" style="text-align:center"></div>
 				<div class="dsd" style="text-align:center">
-				<%if(pager.getFirstPage()-1>0){ %>
-					<a href="/user/lostboard/lostboardlist?currentPage=<%=pager.getFirstPage()-1%>">◀</a>
-				<%}else{ %>
-					<a href="javascript:alert('첫번째 페이지입니다');">◀</a>
-				<%} %>
-					<%for (int i = pager.getFirstPage(); i <= pager.getLastPage(); i++) {%>
-						<%if (i > pager.getTotalPage()) break; %>
-						 <a href="/user/lostboard/lostboardlist?currentPage=<%=i%>">[<%=i%>]</a> 
-						 <%	} %>
-				<%if(pager.getLastPage()+1<pager.getTotalPage()){ %>
-					<a href="/user/lostboard/lostboardlist?currentPage=<%=pager.getLastPage()+1%>">▶</a>
-				<%}else{ %>
-					<a href="javascript:alert('마지막 페이지입니다!');">▶</a>
-				<%} %>
-				<input type="button" value="글 쓰기" class="primary-btn float-right"/>
+				<c:if test="${pager.firstPage-1>0}">
+ 					<a href="/user/lostboard/lostboardlist?currentPage=${pager.firstPage-1}">◀</a>
+ 				</c:if>
+ 				<c:if test="${pager.firstPage-1<=0}">
+ 					<a href="javascript:alert('첫번째 페이지입니다!');">◀</a>
+ 				</c:if>
+ 				<c:forEach var="i" begin="${pager.firstPage}" end="${pager.lastPage}">
+ 					<c:if test="${i<=pager.totalPage }">
+ 						<a href="/user/lostboard/lostboardlist?currentPage=${i}">[${i}]</a>
+ 					</c:if>			
+ 				</c:forEach>
+				<c:if test="${pager.lastPage+1<pager.totalPage}">
+ 						<a href="//user/lostboard/lostboardlist?currentPage=${pager.lastPage+1 }">▶</a>
+ 					</c:if>
+ 					<c:if test="${pager.lastPage+1>pager.totalPage }">
+ 						<a href="javascript:alert('마지막 페이지입니다!');">▶</a>
+ 					</c:if>
 				</div>
 			</div>
 		</div>

@@ -1,15 +1,13 @@
-<%@page import="com.aroundog.common.Pager"%>
 <%@page import="com.aroundog.model.domain.Report"%>
 <%@page import="com.aroundog.model.domain.FreeBoard"%>
 <%@page import="java.util.List"%>
 <%@page import="com.aroundog.model.domain.Admin"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%!Pager pager = new Pager();%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%!//Pager pager = new Pager();%>
 <%
 	Admin admin = (Admin) request.getSession().getAttribute("admin");
-	List<Report> reportList = (List) request.getAttribute("reportList");
-	pager.init(request, reportList.size());
-%>
+%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,51 +56,56 @@
 		</button>
 	</form>
 	<div id="Report" class="tabcontent">
-		<table class="table table-bordered table-sm" style="text-align: center">
-			<tr>
-				<th>No</th>
+ 		<table class="table table-bordered table-sm" style="text-align: center">
+ 			<tr>
+ 				<th>No</th>
 				<th>제목</th>
 				<th>이메일</th>
+				<th>제보날짜</th>
 				<th>전화번호</th>
 				<th>확인여부</th>
-			</tr>
-			<%int num = pager.getNum();%>
-			<%int curPos = pager.getCurPos();%>
-			<%for (int i = 0; i < pager.getPageSize(); i++) {%>
-			<%	if (num < 1)	break;%>
-			<%	Report report = reportList.get(curPos++);	%>
-			<tr>
-				<td width="30px" height="80px" style="vertical-align: middle"><%=num--%></td>
-				<td style="vertical-align: middle"><a href="/reports/<%=report.getReport_id()%>"><%=report.getTitle()%></a></td>
-				<td style="vertical-align: middle"><%=report.getEmail()%></td>
-				<td style="vertical-align: middle"><%=report.getPhone()%></td>
-				<td style="vertical-align: middle">
-	 			<%if(report.getChecking().equals("1")){ %>
-					<%="확인 완료" %>
-				<%}else{%>
-					<%="미확인" %>
-				<%} %> 
-				</td>
-			</tr>
-			<%}	%>
-			<tr>
-		<td colspan="5" align="center">
-				<%if(pager.getFirstPage()-1>0){ %>
-					<a href="/reports?currentPage=<%=pager.getFirstPage()-1%>">◀</a>
-				<%}else{ %>
-					<a href="javascript:alert('첫번째 페이지입니다');">◀</a>
-				<%} %>
-					<%for (int i = pager.getFirstPage(); i <= pager.getLastPage(); i++) {%>
-						<%if (i > pager.getTotalPage()) break; %>
-						 <a href="/reports?currentPage=<%=i%>">[<%=i%>]</a> 
-						 <%	} %>
-				<%if(pager.getLastPage()+1<pager.getTotalPage()){ %>
-					<a href="/reports?currentPage=<%=pager.getLastPage()+1%>">▶</a>
-				<%}else{ %>
-					<a href="javascript:alert('마지막 페이지입니다!');">▶</a>
-				<%} %>
-				</td>
-			</tr>
+ 			</tr>
+ 			<c:set var="curPos" value="${pager.curPos }"/>
+ 			<c:set var="num" value="${pager.num}"/>
+ 			<c:forEach var="report" items="${reportList}" begin="${curPos}" end="${pager.curPos+pager.pageSize-1}">
+ 				<tr>
+	 				<td width="30px" height="80px" style="vertical-align: middle">${num}</td>
+	 				<td style="vertical-align: middle"><a href="/reports/${report.report_id}">${report.title}</a></td>
+	 				<td style="vertical-align: middle">${report.email}</td>
+	 				<td style="vertical-align: middle">${report.regdate}</td> 				
+	 				<td style="vertical-align: middle">${report.phone}</td>
+	 				<td style="vertical-align: middle">
+	 					<c:if test="${report.checking == 1}">
+	 						확인완료
+	 					</c:if>
+	 					<c:if test="${report.checking != 1}">
+	 						미확인
+	 					</c:if>
+	 				</td>
+	 			</tr>
+	 			<c:set var="num" value="${num-1}"/>	
+ 			</c:forEach>
+ 			<tr>
+ 				<td colspan="6" align="center">
+ 				<c:if test="${pager.firstPage-1>0}">
+ 					<a href="/reports?currentPage=${pager.firstPage-1}">◀</a>
+ 				</c:if>
+ 				<c:if test="${pager.firstPage-1<=0}">
+ 					<a href="javascript:alert('첫번째 페이지입니다!');">◀</a>
+ 				</c:if>
+ 					<c:forEach var="i" begin="${pager.firstPage}" end="${pager.lastPage}">
+ 						<c:if test="${i<=pager.totalPage }">
+ 							<a href="/reports?currentPage=${i}">[${i}]</a>
+ 						</c:if>			
+ 					</c:forEach>
+ 					<c:if test="${pager.lastPage+1<pager.totalPage}">
+ 						<a href="/reports?currentPage=${pager.lastPage+1 }">▶</a>
+ 					</c:if>
+ 					<c:if test="${pager.lastPage+1>pager.totalPage }">
+ 						<a href="javascript:alert('마지막 페이지입니다!');">▶</a>
+ 					</c:if>
+ 				</td>
+ 			</tr>
 		</table>
 	</div>
 </body>

@@ -185,6 +185,11 @@ function readCheck(){
 						<label for="first-name">제목</label> <input type="text"
 							class="form-control" name="title" value="<%=report.getTitle() %>" readonly>
 					</div>
+					<div class="form-group">
+					<label for="first-name">제보날짜</label> <input type="text"
+							class="form-control" name="regdate" value="<%=report.getRegdate() %>" readonly>
+					</div>
+					
 					<div class="form-group" style="width: 100%">
 						<label for="note">내용</label>
 						<textarea name="content" class="form-control" id="exampleTextarea"

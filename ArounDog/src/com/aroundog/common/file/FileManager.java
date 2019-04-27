@@ -22,10 +22,18 @@ public class FileManager {
    public String reNameByDate(File ori,String dir) {
       long time = System.currentTimeMillis();
       String filename = time+"."+getExt(ori.getName());
+		/* System.out.println("###파일매니저에서 받은 renameTo 전 파일이름은"+filename); */
       boolean result = ori.renameTo(new File(dir+"/"+filename));
-      if(!result) {
-         filename = null;
-      }
+		
+		  System.out.println("result 내용출력하기##############");
+		  System.out.println(ori.renameTo(new File(dir+"/"+filename)));
+		  System.out.println("###파일매니저에서 받은 renameTo 후 파일이름은"+filename);
+		  System.out.println("###파일매니저 안에서의 result결과는"+result);
+		
+		/*
+		 * if(!result) { filename = null; }
+		 * 
+		 */
       return filename;
    }
    

@@ -25,7 +25,7 @@
 	
 
  	<select id="selectAll" resultMap="lostBoardType">
-		select * from lostboard order by lostboard_id desc
+		select * from lostboard order by lostboard_id asc
 	</select> 
 	
 	<select id="select" resultType="LostBoard" parameterType="int">

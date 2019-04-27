@@ -34,6 +34,7 @@ public class AdminController {
 	@Autowired
 	private ReportService reportService;
 	
+	private Pager pager = new Pager();
 	//userservice-->사용
 	//관리자 로그인 요청
 	@RequestMapping(value="/admin/login", method=RequestMethod.GET)
@@ -62,9 +63,11 @@ public class AdminController {
 	//Report 관련 ---------------------------------------------#	
 	
 	@RequestMapping(value="/reports",method=RequestMethod.GET)
-	public ModelAndView reportList() {	
+	public ModelAndView reportList(HttpServletRequest request) {	
 		List reportList=reportService.selectAll();//모델앤뷰로 리스트 반환하고.. jsp에서 리스트 받아서 목록 출력!!
+		pager.init(request, reportList.size());
 		ModelAndView mav = new ModelAndView("admin/report/index");
+		mav.addObject("pager",pager);
 		mav.addObject("reportList", reportList);
 		return mav;
 	} 
@@ -97,20 +100,6 @@ public class AdminController {
 		reportService.update(report_id);
 		return "redirect:/reports";
 	}
-	
-	/*
-	 * @RequestMapping(value="reports/prev",method=RequestMethod.GET)
-	 * 
-	 * @ResponseBody public String prev(@RequestParam("currentPage") int
-	 * currentPage) { System.out.println("받은 커런트값"+currentPage);
-	 * System.out.println("설정전 커런트값"+pager.getCurrentPage());
-	 * System.out.println("설정전 퍼스트"+pager.getFirstPage());
-	 * pager.setCurrentPage(currentPage);
-	 * System.out.println("설정후 커런트값"+pager.getCurrentPage());
-	 * System.out.println("설정 후 퍼슼트값"+pager.getFirstPage());
-	 * 
-	 * return null; }
-	 */
 	
 	//#---------------------------------------------Report 관련 끝
 	

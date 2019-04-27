@@ -24,6 +24,7 @@
 	<select id="selectThumb" resultType="LostBoardImg" parameterType="int" resultMap="lostBoardImgg">
 	select * from lostboardimg
 	where rownum = 1 and  lostboard_id = #{lostboard.lostboard_id}
+	order by img desc
 	</select>
 	
 	<select id="selectAll" resultType="LostBoardImg">
