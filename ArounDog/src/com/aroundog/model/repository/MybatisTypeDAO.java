@@ -20,4 +20,9 @@ public class MybatisTypeDAO implements TypeDAO{
 		return sessionTemplate.selectOne("Type.select", info);
 	}
 
+	@Override
+	public List selectAll() {
+		return sessionTemplate.selectList("Type.selectAll");
+	}
+
 }

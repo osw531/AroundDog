@@ -18,6 +18,14 @@
 <!-- Site Title -->
 <title>Animal Shelter</title>
 <%@ include file="/user/inc/head.jsp"%>
+<script>
+$(function(){
+	$("input[name='write']").click(function(){
+		location.href="/user/lostboard/write";
+	});
+});
+
+</script>
 </head>
 <body>
 	<header id="header" id="home">
@@ -123,6 +131,7 @@
  					<c:if test="${pager.lastPage+1>pager.totalPage }">
  						<a href="javascript:alert('마지막 페이지입니다!');">▶</a>
  					</c:if>
+				<input type="button" name="write" value="글 작성"	class="primary-btn float-right" />
 				</div>
 			</div>
 		</div>

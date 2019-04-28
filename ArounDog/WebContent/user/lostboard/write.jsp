@@ -1,5 +1,6 @@
 <%@page import="com.aroundog.model.domain.Type"%>
 <%@page import="java.util.List"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
@@ -24,19 +25,8 @@
 		$("input[name='list']").click(function() {
 			location.href="/user/lostboard/lostboardlist"
 		});
-		//askType();
 	});
-/* 
-	function askType() {
-		$.ajax({
-			url : "/rest/lostboard/types",
-			type : "get",
-			success : function(result) {
-				//setType(result);
-			}
-		});
-	}
-
+/*
 	function setData() {
  		alert("나 만든다");
  		/*
@@ -187,10 +177,17 @@
 						<label for="first-name">제목</label> 
 						<input type="text" name="title"	class="form-control" placeholder="제목을 작성해주세요" id="title">
 					</div>
-					<label for="first-name">견종</label>
+					
+					<label for="first-name">견종</label>  
 					<div class="select-option" id="service-select">
-						<select id="type_id" name="type_id" required>
+						<select id="type_id" name="type_id"  >
 							<option>견종 선택</option>
+							<c:forEach var="typeList" items="${typeList}">
+								<option value='<c:out value="${typeList.type_id}" />'>
+								<c:out value="${typeList.info}"/>
+								</option>
+							</c:forEach>
+						<!--
 							<option value="1">골든 리트리버</option>
 							<option value="3">닥스훈트</option>
 							<option value="7">말티즈</option>
@@ -205,7 +202,8 @@
 							<option value="44">치와와</option>
 							<option value="36">요크셔 테리어</option>
 							<option value="46">포메라니안</option>
-							<option value="48">푸들</option>
+							<option value="48">푸들</option> -->
+							
 						</select> 						
 					</div>
 					<br> <br>

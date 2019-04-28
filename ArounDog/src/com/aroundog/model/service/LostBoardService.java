@@ -9,7 +9,7 @@ import com.aroundog.model.domain.LostBoardImg;
 
 public interface LostBoardService {
    public void insert(LostBoard lostBoard);
-   public void insertImg(MultipartFile[] myFile, LostBoard lostBoard, LostBoardImg lostBoardImg,
+   public void insertImg(MultipartFile[] myFile, LostBoard lostBoard,
 			String realPath);
    public List selectAll();
    public LostBoard select(int lostboard_id);

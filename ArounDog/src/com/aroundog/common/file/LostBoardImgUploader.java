@@ -10,8 +10,8 @@ import com.aroundog.model.domain.LostBoardImg;
 
 public class LostBoardImgUploader {
 	private FileManager fileManager = new FileManager();
-
-	public String[] returnFilename(MultipartFile[] myFile, LostBoard lostBoard, LostBoardImg lostBoardImg,
+	
+	public String[] returnFilename(MultipartFile[] myFile, LostBoard lostBoard, 
 			String realPath) {
 		String[] filenameList = new String[myFile.length];
 		for (int i = 0; i < myFile.length; i++) {
@@ -20,7 +20,7 @@ public class LostBoardImgUploader {
 			try {
 				uploadFile = new File(realPath + "/" + filename);
 				myFile[i].transferTo(new File(realPath + "/" + filename));
-				filename = fileManager.reNameByDate(uploadFile, realPath);
+				filename = fileManager.reNameByHash(uploadFile, realPath);
 				if (filename != null) {
 					filenameList[i] = filename;
 				}

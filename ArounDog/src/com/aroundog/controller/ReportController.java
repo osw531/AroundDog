@@ -18,13 +18,12 @@ public class ReportController {
    @Autowired
    private ReportService reportService;
 
-
    @RequestMapping(value = "/user/report", method = RequestMethod.POST)
-   public String report(Report report,ReportImg reportImg, HttpServletRequest request) {
+   public String report(Report report, HttpServletRequest request) {
       MultipartFile[] myFile = report.getMyFile();
       String realPath = request.getServletContext().getRealPath("/data");
       reportService.insert(report);
-      reportService.insertImg(myFile, report, reportImg, realPath);
+      reportService.insertImg(myFile, report,realPath);
       return "redirect:/user/index.jsp";
    }
 }

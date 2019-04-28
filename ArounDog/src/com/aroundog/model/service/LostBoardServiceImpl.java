@@ -31,9 +31,9 @@ public class LostBoardServiceImpl implements LostBoardService{
 	}
 
 	@Override
-	public void insertImg(MultipartFile[] myFile, LostBoard lostBoard, LostBoardImg lostBoardImg,
+	public void insertImg(MultipartFile[] myFile, LostBoard lostBoard,
 			String realPath) throws ReportFailException{
-		String[] imgList = uploader.returnFilename(myFile, lostBoard, lostBoardImg, realPath);
+		String[] imgList = uploader.returnFilename(myFile, lostBoard, realPath);
 		//System.out.println("서비스에서 받은 리스트 크기는"+imgList.size());
 		int result = 0;
 		for(int i=0;i<imgList.length;i++) {

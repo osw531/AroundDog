@@ -16,4 +16,8 @@ public class TypeServiceImpl implements TypeService{
 	public Type select(String info) {
 		return typeDAO.select(info);
 	}
+	@Override
+	public List selectAll() {
+		return typeDAO.selectAll();
+	}
 }

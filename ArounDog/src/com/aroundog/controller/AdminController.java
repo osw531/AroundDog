@@ -117,6 +117,5 @@ public class AdminController {
 		return "admin/adoptmanager/index";
 	}
 	
-
 	
 }
