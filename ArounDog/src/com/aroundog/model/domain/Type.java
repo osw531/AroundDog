@@ -1,6 +1,7 @@
 package com.aroundog.model.domain;
 
 public class Type {
+	
 	private int type_id;
 	private String info;
 	
@@ -16,4 +17,5 @@ public class Type {
 	public void setInfo(String info) {
 		this.info = info;
 	}
+	
 }

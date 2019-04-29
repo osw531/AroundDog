@@ -17,11 +17,11 @@ private String content;
    private String checking;
 
    public String getTitle() {
-	   return title;
+      return title;
    }
    
    public void setTitle(String title) {
-	   this.title = title;
+      this.title = title;
    }
    public MultipartFile[] getMyFile() {
       return myFile;
@@ -88,11 +88,11 @@ private String content;
    }
 
 public String getChecking() {
-	return checking;
+   return checking;
 }
 
 public void setChecking(String checking) {
-	this.checking = checking;
+   this.checking = checking;
 }
    
 }

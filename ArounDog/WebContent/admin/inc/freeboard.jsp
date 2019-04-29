@@ -37,6 +37,7 @@
 				<td>Yes</td>
 				<td>Yes</td>
 			</tr>
+			
 		</tbody>
 	</table>
 </div>

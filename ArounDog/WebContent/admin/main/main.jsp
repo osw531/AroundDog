@@ -13,7 +13,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" 
 integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-
 <style>
 * {box-sizing: border-box}
 
@@ -64,10 +63,11 @@ body, html {
 <form>
 <div class="loginName" style="text-align:right"><%=admin.getName() %>님 로그인중</div>
 <button class="tablink" type="button" onclick="openPage('User', this, 'red')" id="defaultOpen"><i class="fas fa-user-friends" style="font-size:20px"></i>  회원관리</button> 
-<button class="tablink" type="button" onclick="openPage('Report', this, 'white')"><i class="fas fa-bullhorn" style="font-size:20px"></i>  제보관리</button>
+<button class="tablink" type="button" onclick="openPage('Report', this, 'green')"><i class="fas fa-bullhorn" style="font-size:20px"></i>  제보관리</button>
 <button class="tablink" type="button" onclick="openPage('Adopt', this, 'blue')"><i class="far fa-edit" style="font-size:20px"></i>  입양신청관리</button>
 <button class="tablink" type="button"><i class="far fa-comment-alt" 	style="font-size:20px"></i>  게시판관리</button>
 <button class="tablink" type="button" onclick="openPage('AdoptManager', this, 'pink')"><i class="fas fa-dog" style="font-size:20px"></i>  입양게시물관리</button>
+<button class="tablink" type="button" onclick="openPage('Lostboard', this, 'light-gray')"><i class="fas fa-dog" style="font-size:20px"></i>  임보게시판관리</button>
 </form>
 <div id="User" class="tabcontent">
 <%-- <%FreeBoard freeBoard=freeBoardList.get(0);%>  --%>

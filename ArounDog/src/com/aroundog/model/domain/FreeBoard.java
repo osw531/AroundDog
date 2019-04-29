@@ -3,20 +3,17 @@ package com.aroundog.model.domain;
 public class FreeBoard {
 	private int freeboard_id;
 	private Member member;
-	private String pass;
+	private String category;
 	private String title;
 	private String content;
 	private String regdate;
 	private int hit;
 	private String secret;
-	private int team;
-	private int rank;
-	private int depth;
-	
-	public int getFree_id() {
+	private int member_id;
+	public int getFreeboard_id() {
 		return freeboard_id;
 	}
-	public void setFree_id(int freeboard_id) {
+	public void setFreeboard_id(int freeboard_id) {
 		this.freeboard_id = freeboard_id;
 	}
 	public Member getMember() {
@@ -25,11 +22,11 @@ public class FreeBoard {
 	public void setMember(Member member) {
 		this.member = member;
 	}
-	public String getPass() {
-		return pass;
+	public String getCategory() {
+		return category;
 	}
-	public void setPass(String pass) {
-		this.pass = pass;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 	public String getTitle() {
 		return title;
@@ -61,24 +58,15 @@ public class FreeBoard {
 	public void setSecret(String secret) {
 		this.secret = secret;
 	}
-	public int getTeam() {
-		return team;
+	public int getMember_id() {
+		return member_id;
 	}
-	public void setTeam(int team) {
-		this.team = team;
+	public void setMember_id(int member_id) {
+		this.member_id = member_id;
 	}
-	public int getRank() {
-		return rank;
-	}
-	public void setRank(int rank) {
-		this.rank = rank;
-	}
-	public int getDepth() {
-		return depth;
-	}
-	public void setDepth(int depth) {
-		this.depth = depth;
-	}
+	
+	
+	
 	
 	
 	

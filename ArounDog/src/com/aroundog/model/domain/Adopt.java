@@ -7,8 +7,11 @@ public class Adopt {
 	private String content;
 	private String regdate;
 	private String envir;
+	private Adoptboard adoptboard;
 	private int adoptboard_id;
-	private int member_id;
+	
+	private Member member;
+	private String checking;
 	
 	
 	public int getAdopt_id() {
@@ -47,16 +50,32 @@ public class Adopt {
 	public void setEnvir(String envir) {
 		this.envir = envir;
 	}
+	public Adoptboard getAdoptboard() {
+		return adoptboard;
+	}
+	public void setAdoptboard(Adoptboard adoptboard) {
+		this.adoptboard = adoptboard;
+	}
 	public int getAdoptboard_id() {
 		return adoptboard_id;
 	}
 	public void setAdoptboard_id(int adoptboard_id) {
 		this.adoptboard_id = adoptboard_id;
 	}
-	public int getMember_id() {
-		return member_id;
+	public Member getMember() {
+		return member;
 	}
-	public void setMember_id(int member_id) {
-		this.member_id = member_id;
+	public void setMember(Member member) {
+		this.member = member;
 	}
+	public String getChecking() {
+		return checking;
+	}
+	public void setChecking(String checking) {
+		this.checking = checking;
+	}
+	
+	
+	
+	
 }

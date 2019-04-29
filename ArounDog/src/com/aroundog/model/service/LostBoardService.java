@@ -10,7 +10,7 @@ import com.aroundog.model.domain.LostBoardImg;
 public interface LostBoardService {
    public void insert(LostBoard lostBoard);
    public void insertImg(MultipartFile[] myFile, LostBoard lostBoard,
-			String realPath);
+         String realPath);
    public List selectAll();
    public LostBoard select(int lostboard_id);
    public List selectImg(int lostboard_id);
@@ -18,4 +18,8 @@ public interface LostBoardService {
    public LostBoardImg selectThumb(int lostboard_id);
    public List selectAllImg();
    public List getKeyWordList(List lostBoardList);
+   public void delete(int lostboard_id);
+   public void deleteImg(int lostboard_id);
+   public void updateLostBoard(LostBoard lostboard);
+   public void updateLostBoardImg(MultipartFile[] myFile,List<LostBoardImg> oriList,LostBoard lostBoard,LostBoardImg lostBoardImg, String realPath);
 }

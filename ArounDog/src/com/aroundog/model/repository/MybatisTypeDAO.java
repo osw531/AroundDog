@@ -1,3 +1,4 @@
+
 package com.aroundog.model.repository;
 
 import java.util.List;
@@ -8,21 +9,21 @@ import org.springframework.stereotype.Repository;
 
 import com.aroundog.model.domain.Type;
 
+
+
 @Repository
 public class MybatisTypeDAO implements TypeDAO{
-	
 	@Autowired
-	private SqlSessionTemplate sessionTemplate;
+	private SqlSessionTemplate sqlSessionTemplate;
 
-	@Override
-	public Type select(String info) {
-		// TODO Auto-generated method stub
-		return sessionTemplate.selectOne("Type.select", info);
-	}
-
-	@Override
+	//관리자 : 타입 리스트 불러오기
 	public List selectAll() {
-		return sessionTemplate.selectList("Type.selectAll");
+		return sqlSessionTemplate.selectList("Type.selectAll");
 	}
 
+	@Override
+	public Type select(int type_id) {
+		return sqlSessionTemplate.selectOne("Type.select", type_id);
+	}
+	
 }

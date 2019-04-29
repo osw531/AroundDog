@@ -1,6 +1,6 @@
 <%@page import="java.util.Collections"%>
 <%@page import="com.aroundog.model.domain.LostBoardImg"%>
-<%@page import="com.aroundog.common.Pager"%>
+<%@page import="com.aroundog.commons.Pager"%>
 <%@page import="com.aroundog.model.domain.LostBoard"%>
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html; charset=UTF-8"%>

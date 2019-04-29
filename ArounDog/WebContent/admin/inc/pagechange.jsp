@@ -15,6 +15,9 @@ $(function(){
 	$($("button")[4]).click(function(){
 		adoptManagerList();
 	});
+	$($("button")[5]).click(function(){
+		lostboardList();
+	});
 });
 
 function openPage(pageName,elmnt,color) {
@@ -31,7 +34,7 @@ function openPage(pageName,elmnt,color) {
 	elmnt.style.backgroundColor = color;
 }
 function userList(){
-	location.href="/users";
+	location.href="/admin/members";
 }
 function reportList(){
 	location.href="/reports";
@@ -40,8 +43,11 @@ function adoptList(){
 	location.href="/adopts";
 }
 function freeBoadList(){
-	location.href="/freeboards";
+	location.href="/admin/freeboard";
 }
 function adoptManagerList(){
-	location.href="/adoptmanagers";
+	location.href="/admin/adoptmanagers";
+}
+function lostboardList(){
+   location.href="/admin/lostboardList";
 }

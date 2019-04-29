@@ -9,6 +9,6 @@
    </insert>
    
    <select id="selectImgList" resultType="ReportImg">
-   	select * from reportimg where report_id = #{report_id}
+      select * from reportimg where report_id = #{report_id}
    </select>
 </mapper>

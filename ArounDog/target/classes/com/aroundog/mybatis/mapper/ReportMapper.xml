@@ -21,11 +21,11 @@
    </select>
    
    <select id="select" parameterType="int" resultType="Report">
-   	<include refid="sql_select"/> where report_id=#{report_id}
+      <include refid="sql_select"/> where report_id=#{report_id}
    </select>
    
    <update id="update" parameterType="int">
-   	update report set checking = '1'
-   	where report_id = #{report_id}
+      update report set checking = '1'
+      where report_id = #{report_id}
    </update>
 </mapper>
